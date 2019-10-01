@@ -1,10 +1,10 @@
 package Problem1;
 
 public class Point {
-	private float x;
-	private float y;
+	private int x;
+	private int y;
 	
-	public Point(float x, float y) {
+	public Point(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}

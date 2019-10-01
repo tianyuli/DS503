@@ -1,12 +1,12 @@
 package Problem1;
 
 public class Rectangle {
-	private float x;
-	private float y;
-	private float h;
-	private float w;
+	private int x;
+	private int y;
+	private int h;
+	private int w;
 	
-	public Rectangle(float x, float y, float h, float w) {
+	public Rectangle(int x, int y, int h, int w) {
 		this.x = x;
 		this.y = y;
 		this.h = h;
