@@ -14,18 +14,21 @@ import Problem1.Point;
 
 public class kMeans {	
 	public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
+		Job job = Job.getInstance();		
+		job.setJarByClass(kMeans.class);
+		job.setJobName("kMeans");
 		String input = args[0];
 		String output = args[1];
-		float close;
-        if (args.length == 4) {
-        	close = Float.valueOf(args[3]);
-        } else {
-        	close = (float) 0.1;
-        }
+//		float close;
+//        if (args.length == 4) {
+//        	close = Float.valueOf(args[3]);
+//        } else {
+//        	close = (float) 0.1;
+//        }
 		int k = Integer.valueOf(args[2]);
 
 		List<String> clusters= new ArrayList<String>();
-		String file_name = "part-r-00000";
+//		String file_name = "part-r-00000";
 		//first round
 		//get random k points
 		for(int index = 0; index < k; index++){
@@ -47,7 +50,7 @@ public class kMeans {
 				conf.set("C"+Integer.toString(j),clusters.get(j));
 			}
 			Path temp_out = new Path(output+"output_"+Integer.toString(i)+"/");
-			Job job = Job.getInstance(conf, "kMeans");
+//			Job job = Job.getInstance();
 
 			job.setNumReduceTasks(1);
 			job.setJarByClass(kMeans.class);
@@ -70,18 +73,18 @@ public class kMeans {
 		}
 	}
 	
-	private static boolean checkClose(List<String> newCluster, List<String> cluster, float close) {
-		for(int j=0;j<newCluster.size();j++){
-            String[] centroids = newCluster.get(j).split(",");
-            double old_x = Double.valueOf(centroids[0]);
-            double old_y = Double.valueOf(centroids[1]);
-            double new_x = Double.valueOf(centroids[2]);
-            double new_y = Double.valueOf(centroids[3]);
-            double diff_x = Math.abs(old_x-new_x);
-            double diff_y = Math.abs(old_y-new_y);
-            if (diff_x > close || diff_y > close)	return false;
-        }
-		return true;
-
-	}
+//	private static boolean checkClose(List<String> newCluster, List<String> cluster, float close) {
+//		for(int j=0;j<newCluster.size();j++){
+//            String[] centroids = newCluster.get(j).split(",");
+//            double old_x = Double.valueOf(centroids[0]);
+//            double old_y = Double.valueOf(centroids[1]);
+//            double new_x = Double.valueOf(centroids[2]);
+//            double new_y = Double.valueOf(centroids[3]);
+//            double diff_x = Math.abs(old_x-new_x);
+//            double diff_y = Math.abs(old_y-new_y);
+//            if (diff_x > close || diff_y > close)	return false;
+//        }
+//		return true;
+//
+//	}
 }

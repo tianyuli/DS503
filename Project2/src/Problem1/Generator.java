@@ -30,8 +30,8 @@ public class Generator {
 			for(int index = 1; index <= 3000000; ){
 				int x = (int) (Math.random() * 9999 + 1);
 				int y = (int) (Math.random() * 9999 + 1);
-				int h = (int) (Math.random() * 9999 + 1);
-				int w = (int) (Math.random() * 9999 + 1);
+				int h = (int) (Math.random() * 9 + 1);
+				int w = (int) (Math.random() * 9 + 1);
 				if((x+w) > 10000 || (y+h) > 10000)
 					continue;
 				Rectangle r = new Rectangle(x,y,h,w);

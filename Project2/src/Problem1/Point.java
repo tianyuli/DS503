@@ -10,6 +10,6 @@ public class Point {
 	}
 	
 	public String write() {
-		return String.valueOf(x)+", "+String.valueOf(y);  
+		return String.valueOf(x)+","+String.valueOf(y)+"\n";  
 	}
 }

@@ -13,6 +13,6 @@ public class Rectangle {
 		this.w = w;				
 	}
 	public String write() {
-		return String.valueOf(x)+", "+String.valueOf(y) + ", "+String.valueOf(h)+", "+String.valueOf(w);  
+		return String.valueOf(x)+","+String.valueOf(y) + ","+String.valueOf(h)+","+String.valueOf(w)+"\n";  
 	}
 }
