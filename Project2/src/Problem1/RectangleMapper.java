@@ -1,9 +1,6 @@
 package Problem1;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
@@ -25,29 +22,29 @@ public class RectangleMapper extends Mapper<LongWritable, Text, Text, Text> {
             w_y_2 = Integer.valueOf(windows[3]);
         }
 		String[] data = value.toString().split(",");
+		int blockx = (w_x_2 - w_x_1)/10;
+		int blocky = (w_y_2 - w_y_1)/10;
 		
 		int x_1 = Integer.valueOf(data[0]);
-        int x_2 = Integer.valueOf(data[0])+Integer.valueOf(data[3]);
+        int w = Integer.valueOf(data[3]);
         int y_1 = Integer.valueOf(data[1]);
-        int y_2 = Integer.valueOf(data[1])+Integer.valueOf(data[2]);
-		for (int i=(int)Math.floor(x_1/10);i<=(int)Math.floor(x_2/10);i++) {
-            for (int j=(int)Math.floor(y_1/10);j<=(int)Math.floor(y_2/10);j++)
-                if (x_1 >= w_x_1 && x_1 <= w_x_2 && y_1 >= w_y_1 && y_1 <= w_y_2) {
-                    // down left rectangle inside the window
-                    context.write(new Text(Integer.toString(i)+"_"+Integer.toString(j)),new Text(value.toString()));
-                }else if (x_1 >= w_x_1 && x_1 <= w_x_2 && y_2 >= w_y_1 && y_2 <= w_y_2){
-                    // up left rectangle inside the window
-                    context.write(new Text(Integer.toString(i)+"_"+Integer.toString(j)),new Text(value.toString()));
-                }else if (x_2 >= w_x_1 && x_2 <= w_x_2 && y_1 >= w_y_1 && y_1 <= w_y_2){
-                    // down right rectangle inside the window
-                    context.write(new Text(Integer.toString(i)+"_"+Integer.toString(j)),new Text(value.toString()));
-                }else if (x_2 >= w_x_1 && x_2 <= w_x_2 && y_2 >= w_y_1 && y_2 <= w_y_2){
-                    // down right rectangle inside the window
-                    context.write(new Text(Integer.toString(i)+"_"+Integer.toString(j)),new Text(value.toString()));
-                }else if (x_1 <= w_x_1 && x_2 >= w_x_2 && y_1 <= w_y_1 && y_2 >= w_y_2) {
-                    // window inside the rectangle
-                    context.write(new Text(Integer.toString(i)+"_"+Integer.toString(j)),new Text(value.toString()));
-                }
+        int h = Integer.valueOf(data[2]);
+		
+        //check each block if it in or partially in the rectangle
+        for(int x = w_x_1; x < w_x_2; x += blockx) {
+        	for(int y = w_y_1; y < w_y_2; y += blocky) {
+        		Rectangle rB = new Rectangle(x, y, blocky, blockx);
+        		Rectangle r = new Rectangle(x_1, y_1, h, w);
+        		if(isIn(rB,r))
+        			context.write(new Text(x+","+y+","+blockx+","+blocky), new Text("Rectangle:"+value));
+        	}
         }
+	}
+	private boolean isIn(Rectangle rb, Rectangle r) {
+		if(r.getX() + r.getW() < rb.getX())		return false;
+		if(r.getX() > rb.getX() + rb.getW())	return false;
+		if(r.getY() > rb.getY() + rb.getH())	return false;
+		if(r.getY() + r.getH() < rb.getY())		return false;
+		return true;
 	}
 }

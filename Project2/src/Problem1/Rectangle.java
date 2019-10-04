@@ -15,4 +15,16 @@ public class Rectangle {
 	public String write() {
 		return String.valueOf(x)+","+String.valueOf(y) + ","+String.valueOf(h)+","+String.valueOf(w)+"\n";  
 	}
+	public int getX() {
+		return this.x;
+	}
+	public int getY() {
+		return this.y;
+	}
+	public int getH() {
+		return this.h;
+	}
+	public int getW() {
+		return this.w;
+	}
 }

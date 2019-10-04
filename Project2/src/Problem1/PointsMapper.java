@@ -11,7 +11,6 @@ public class PointsMapper extends Mapper<LongWritable, Text, Text, Text> {
 		@Override
 		public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 			Configuration conf = context.getConfiguration();
-			int block = Integer.valueOf(conf.get("Block"));
 			String ws = conf.get("Window");
 	        int w_x_1 = 0;
 	        int w_x_2 = 10000;
@@ -24,12 +23,15 @@ public class PointsMapper extends Mapper<LongWritable, Text, Text, Text> {
 	            w_y_1 = Integer.valueOf(windows[1]);
 	            w_y_2 = Integer.valueOf(windows[3]);
 	        }
+	        int blockx = (w_x_2 - w_x_1) / 10;
+	        int blocky = (w_y_2 - w_y_1) / 10;
 			String[] point = value.toString().split(",");
 			if(Integer.valueOf(point[0]) >= w_x_1 && Integer.valueOf(point[0]) <= w_x_2) {
 				if(Integer.valueOf(point[1]) >= w_y_1 && Integer.valueOf(point[1]) <= w_y_2) {
-					int id = (Integer.valueOf(point[0]) - w_x_1) / ((w_x_2 - w_x_1)/block);
-//					System.out.println("Key: "+id+" ****** "+value);
-					context.write(new Text(id+""), new Text("Point:" + value));
+					int x_0 = (Integer.valueOf(point[0]) - w_x_1) / blockx * blockx + w_x_1;
+					int y_0 = (Integer.valueOf(point[1]) - w_y_1) / blocky * blocky + w_y_1;
+					context.write(new Text(x_0+","+y_0+","+blockx+","+blocky), 
+							new Text("Point:" + value));
 				}
 			}
 			

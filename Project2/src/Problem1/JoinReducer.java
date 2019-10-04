@@ -39,7 +39,6 @@ public class JoinReducer extends Reducer<Text, Text, Text, Text> {
 						for(int i: r) {
 							k.append(i+", ");
 						}
-						
 						context.write(new Text(k.toString()), new Text("("+p.get(0)+","+p.get(1)+")"));
 					}
 				
