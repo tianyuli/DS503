@@ -1,4 +1,4 @@
-package Problem1;
+package DataGeneration;
 
 public class Rectangle {
 	private int x;
