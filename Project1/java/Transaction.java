@@ -1,4 +1,4 @@
-package Java;
+package java;
 import java.lang.String;
 
 public class Transaction {
