@@ -12,7 +12,7 @@ public class Generator {
 		try{
 			FileWriter csvWriter = new FileWriter("Points.csv");
 		
-			for(int index = 1; index <= 6000000; index++){
+			for(int index = 1; index <= 11000000; index++){
 				int x = (int) (Math.random() * 10000 + 1);
 				int y = (int) (Math.random() * 10000 + 1);
 				Point p = new Point(x, y);
@@ -27,7 +27,7 @@ public class Generator {
 		try{
 			FileWriter csvWriter = new FileWriter("Rectangle.csv");
 		
-			for(int index = 1; index <= 3000000; ){
+			for(int index = 1; index <= 70000000; ){
 				int x = (int) (Math.random() * 10000 + 1);
 				int y = (int) (Math.random() * 10000 + 1);
 				int h = (int) (Math.random() * 10 + 1);

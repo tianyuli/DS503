@@ -16,6 +16,7 @@ public class kMeansCombiner extends Reducer<Text,Text,Text,Text> {
             mean_y += Double.valueOf(data[1]);
             count += 1;
         }
+        System.out.println("Conbining "+ String.valueOf(mean_x)+" "+String.valueOf(mean_y)+" "+String.valueOf(count));
         context.write(key, new Text(Double.toString(mean_x)+","+Double.toString(mean_y)+","+Double.toString(count)));
     }
 }
