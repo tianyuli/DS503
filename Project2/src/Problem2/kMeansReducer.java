@@ -14,7 +14,7 @@ public class kMeansReducer extends Reducer<Text,Text,Text,Text> {
             String[] data = str.toString().split(",");
             x += Integer.valueOf(data[0]);
             y += Integer.valueOf(data[1]);
-            count += 1;
+            count += Integer.valueOf(data[2]);;
         }
         //key is the previous centroid, value if the new centroid
         context.write(key,new Text(String.valueOf(x/count)+","+String.valueOf(y/count)));

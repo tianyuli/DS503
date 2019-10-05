@@ -18,26 +18,25 @@ public class kMeansMapper extends Mapper<LongWritable, Text, Text, Text>{
         int cur_x = Integer.valueOf(data[0]);
         int cur_y = Integer.valueOf(data[1]);
         
-        List<Double> ans = new ArrayList<Double>();
-        ans.add(Double.POSITIVE_INFINITY);//Distance
-        ans.add((double)0);//index
+        List<Double> closest = new ArrayList<Double>();
+        closest.add(Double.POSITIVE_INFINITY);//Distance
+        closest.add((double)0);//index
 
         // read all the centroids from the setting
         // and compare to the closest one
         for (int i = 0;i < K;i++){
         	//get the ith centroid
             String[] temp = conf.get("C" + Integer.toString(i)).split(",");
-            double temp_x = Double.valueOf(temp[0]);
-            double temp_y = Double.valueOf(temp[1]);
-            double dis = Math.sqrt(Math.pow(cur_x - temp_x,2)+Math.pow(cur_y - temp_y,2));
+            int x = Integer.valueOf(temp[0]);
+            int y = Integer.valueOf(temp[1]);
+            double dis = Math.sqrt(Math.pow(cur_x - x,2)+Math.pow(cur_y - y,2));
 
-            if (dis < ans.get(0)) {
-                ans.set(0,dis);
-                ans.set(1,(double)i);
+            if (dis < closest.get(0)) {
+            	closest.set(0,dis);
+            	closest.set(1,(double)i);//record the index of closest centroid
             }
         }
         //key is the centroid
-        context.write(new Text(conf.get("C"+Integer.toString(ans.get(1).intValue()))),new Text(value));
-
+        context.write(new Text(conf.get("C"+Integer.toString(closest.get(1).intValue()))),new Text(value));
 	}
 }

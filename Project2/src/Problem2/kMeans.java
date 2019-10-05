@@ -21,7 +21,10 @@ public class kMeans {
 		String input = args[0];
 		String kfile = args[1];
 		String output = args[2];
-		int k = Integer.valueOf(args[3]);
+		int k = 100;
+		if(args.length == 4) {
+			k = Integer.valueOf(args[3]);
+		}
 		conf.set("K",Integer.toString(k));
 
 		List<String> clusters= new ArrayList<String>();
@@ -49,7 +52,7 @@ public class kMeans {
 			job.setJarByClass(kMeans.class);
 			job.setJarByClass(kMeans.class);
 			job.setMapperClass(kMeansMapper.class);
-			//			job.setCombinerClass(kMeansCombiner.class);
+			job.setCombinerClass(kMeansCombiner.class);
 			job.setReducerClass(kMeansReducer.class);
 
 			FileInputFormat.addInputPath(job, new Path(input));
