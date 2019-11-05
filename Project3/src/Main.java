@@ -10,37 +10,35 @@ public class Main {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args){
-		// genterate 50,000 lines of Customers
-		try{
-			FileWriter csvWriter = new FileWriter("Customers.csv");
-		
-			for(int index = 1; index <= 50000; index++){
-				String name = getRandomStr((int)(Math.random() * 10 + 10));
-				int age = (int)(Math.random() * 60 + 10);
-				String gender = (Math.random() * 2) > 1 ? "male" : "female";
-				int countrycode = (int)(Math.random() * 10 + 1);
-				float salary = (float) (Math.random() * (10000 - 100) + 100);
-				
-				Customer c = new Customer(index, name, age, gender, countrycode, salary);
-				csvWriter.append(c.write());
-			}
-			csvWriter.flush();
-			csvWriter.close();
-		}catch (Exception e) {
-		    e.printStackTrace();
-		}
 		// Generate 5M lines of Transactions
 		try{
 			FileWriter csvWriter = new FileWriter("Transactions.csv");
-		
+			int custID = (int)(Math.random() * 50000 + 1);
+			int times = (int)(Math.random() * 30 + 1);
 			for(int index = 1; index <= 5000000; index++){
-				int custID = (int)(Math.random() * 50000 + 1);
+				if (times > 0) times --;
+				else {
+					custID = (int)(Math.random() * 50000 + 1);
+					times = (int)(Math.random() * 30 + 1);
+				}				
+				
 				float transTotal = (float) (Math.random() * (1000 - 10) + 10);
 				int transNumItems = (int)(Math.random() * 10 + 1);
-				String transDesc = getRandomStr((int)(Math.random() * 30 + 20));
+				String transDesc = getRandomStr((int)(Math.random() * 5 + 20));
 				
 				Transaction t = new Transaction(index, custID, transTotal, transNumItems, transDesc);
 				csvWriter.append(t.write());
+			}
+			csvWriter.flush();
+			csvWriter.close();
+			
+			csvWriter = new FileWriter("Points.csv");
+			
+			for(int index = 1; index <= 11000000; index++){
+				int x = (int) (Math.random() * 10000 + 1);
+				int y = (int) (Math.random() * 10000 + 1);
+				Point p = new Point(x, y);
+				csvWriter.append(p.write());
 			}
 			csvWriter.flush();
 			csvWriter.close();
