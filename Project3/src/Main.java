@@ -32,11 +32,11 @@ public class Main {
 			csvWriter.flush();
 			csvWriter.close();
 			
-			csvWriter = new FileWriter("Points.csv");
+			csvWriter = new FileWriter("Points.txt");
 			
 			for(int index = 1; index <= 11000000; index++){
-				int x = (int) (Math.random() * 10000 + 1);
-				int y = (int) (Math.random() * 10000 + 1);
+				int x = (int) (Math.random() * 9999);
+				int y = (int) (Math.random() * 9999);
 				Point p = new Point(x, y);
 				csvWriter.append(p.write());
 			}
