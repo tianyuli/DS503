@@ -1,0 +1,9 @@
+db.test.aggregate(
+	[
+		{$unwind:"$awards"},
+		{$match:{'awards.year':2001}},
+		{$group:{_id: "$name",count:{$sum:1}}},
+                {$match:{count:{$gte: 2}}},
+                {$project:{name:1}}
+		]
+	)

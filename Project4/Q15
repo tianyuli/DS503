@@ -1,0 +1,19 @@
+db.test.find(
+	{
+        name: {
+            "first": "Alex",
+            "last": "Chen"
+        }
+    }
+).forEach(
+	function(u){
+		contributions=u.contribs
+	}
+	);
+db.test.aggregate(
+        [
+        	{$unwind:"$contribs"},
+		{$match:{'contribs':{$in: contributions}}},
+		{$group:{_id: "$contribs",people:{$push:"$name"}}}
+            ]
+)

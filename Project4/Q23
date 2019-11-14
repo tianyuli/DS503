@@ -1,0 +1,2 @@
+db.test.find().sort({_id:1}).limit(1);
+db.test.find().sort({_id:-1}).limit(1);

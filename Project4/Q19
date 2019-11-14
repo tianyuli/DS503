@@ -1,0 +1,7 @@
+var cursor = db.test.find().sort({ _id: -1 }).limit(1);
+var max_id = cursor.next()._id
+var doc = db.test.findOne(
+	{
+		_id: max_id
+    }
+)

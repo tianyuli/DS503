@@ -1,0 +1,48 @@
+db.test.insertMany([
+{
+"_id" : 20,
+"name" : {
+"first" : "Alex",
+"last" : "Chen"
+},
+"birth" : ISODate("1933-08-27T04:00:00Z"),
+"death" : ISODate("1984-11-07T04:00:00Z"),
+"contribs" : [
+"C++",
+"Simula"
+],
+"awards" : [
+{
+"award" : "WPI Award",
+"year" : 1977,
+"by" : "WPI"
+}
+]
+},
+{
+"_id" : 30,
+"name" : {
+"first" : "David",
+"last" : "Mark"
+},
+"birth" : ISODate("1911-04-12T04:00:00Z"),
+"death" : ISODate("2000-11-07T04:00:00Z"),
+"contribs" : [
+"C++",
+"FP",
+"Lisp",
+],
+"awards" : [
+{
+"award" : "WPI Award",
+"year" : 1963,
+"by" : "WPI"
+},
+{
+"award" : "Turing Award",
+"year" : 1966,
+"by" : "ACM"
+}
+]
+}
+])

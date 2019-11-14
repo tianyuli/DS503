@@ -1,0 +1,5 @@
+db.test.aggregate(
+{$match:{birth:{$exists:true}}},
+{$group:{_id:{$year:"$birth"},
+idarray:{$addToSet:"$_id"}}
+})

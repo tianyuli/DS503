@@ -1,0 +1,8 @@
+db.test.find(
+	{
+		$or: [
+			{ $where: "this.awards ? this.awards.length < 3 : false" },
+			{ contribs: "FP" }
+		]
+	}
+)

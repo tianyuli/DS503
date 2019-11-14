@@ -1,0 +1,15 @@
+db.test.update(
+	{
+		"awards.year": 2011
+    },
+    {
+		$cc: {
+			awards: {
+				year: 2011
+			}
+		}
+    },
+    {
+		multi: true
+	}
+)

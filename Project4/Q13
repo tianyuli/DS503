@@ -1,0 +1,11 @@
+db.test.update(
+	{
+        name: {
+            "first": "Guido",
+            "last": "van Rossum"
+        }
+	},
+   	{
+		$push: { contribs: "OOP" }
+   }
+)
