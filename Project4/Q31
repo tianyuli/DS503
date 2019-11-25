@@ -1,0 +1,13 @@
+var stack = [], ancestors = [], level = 0;
+var category = db.ParentRef.findOne({_id: "MongoDB"});
+stack.push(category);
+while (stack.length > 0) {
+	level++;
+	var current = stack.pop();
+	var parent = db.ParentRef.findOne({_id: current.parent});
+	if (parent) {
+		ancestors.push({ Name: parent._id, Level: level });
+		stack.push(parent);
+	}
+}
+ancestors

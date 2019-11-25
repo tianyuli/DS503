@@ -3,7 +3,7 @@ db.test.update(
 		"awards.year": 2011
     },
     {
-		$cc: {
+		$pull: {
 			awards: {
 				year: 2011
 			}

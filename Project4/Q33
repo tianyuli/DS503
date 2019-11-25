@@ -1,0 +1,4 @@
+parent = db.ChildRef.findOne(
+	{ children: { $in: ["dbm"] }}
+);
+parent

@@ -1,0 +1,21 @@
+// PARENT REFERENCES
+new_categories = [
+ 	{ _id: "MongoDB", parent: "Databases" },
+ 	{ _id: "dbm", parent: "Databases" },
+ 	{ _id: "Databases", parent: "Programming" },
+	{ _id: "Languages", parent: "Programming" },
+ 	{ _id: "Programming", parent: "Books" },
+	{ _id: "Books", parent: null },
+];
+db.ParentRef.insert(new_categories);
+
+// CHILD REFERENCES
+new_categories2 = [
+	{ _id: "MongoDB", children: [] },
+ 	{ _id: "dbm", children: [] },
+	{ _id: "Databases", children: ["dbm", "MongoDB"] },
+	{ _id: "Languages", children: [] },
+ 	{ _id: "Programming", children: ["Databases", "Languages"] },
+ 	{ _id: "Books", children: ["Programming"] },
+ ];
+db.ChildRef.insert(new_categories2);

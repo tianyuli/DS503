@@ -1,0 +1,14 @@
+var stack = [],	descendants = [];
+var category = db.ChildRef.findOne({_id: "Books"});
+stack.push(category);
+while (stack.length > 0) {
+	var current = stack.pop();
+	var children = db.ChildRef.find({_id: {$in: current.children}});
+
+	while (children.hasNext()) {
+		var child = children.next();
+		descendants.push(child._id);
+		stack.push(child);
+	}
+}
+descendants

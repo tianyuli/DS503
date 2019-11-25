@@ -1,0 +1,18 @@
+var stack = [],	visitedIds = {}, level = 0;
+var category = db.ParentRef.findOne({_id: "Books"});
+stack.push(category);
+while (stack.length > 0) {
+	var current = stack.pop();
+	var children = db.ParentRef.find({parent: current._id});
+
+	if (!(current.parent in visitedIds)) {
+		level++;
+		visitedIds[current.parent] = 1;
+	}
+
+	while (children.hasNext()) {
+		var child = children.next();
+		stack.push(child);
+	}
+}
+level
