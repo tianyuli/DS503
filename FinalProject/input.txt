@@ -1,0 +1,3 @@
+Select Cid, count(*) from transaction where total>40000 group by Cid;
+Threshold 0.1
+Alpha 0.2;
