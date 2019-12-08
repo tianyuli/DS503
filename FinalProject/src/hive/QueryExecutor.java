@@ -15,14 +15,12 @@ public class QueryExecutor {
 	
 	public static void initialize(String db) throws SQLException {
 		url = "jdbc:hive2://localhost:10000/" + db;
-		
 		try {
 			Class.forName(driver);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			System.exit(1);
 		}
-		
 		connect = DriverManager.getConnection(url, user, password);
 	}
 	
@@ -35,6 +33,6 @@ public class QueryExecutor {
 	public static void main(String[] args) throws SQLException {
 		initialize("default");
 		ResultSet result = execute("show tables");
-		System.out.println(result.getString(1) + result.getString(2));
+		System.out.println(result);
 	}
 }
