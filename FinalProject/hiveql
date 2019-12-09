@@ -1,6 +1,7 @@
 create table transaction(Tid int, Cid int, Total float, Num int, Day String, Month String, DayOfWeek String) 
-CLUSTERED BY (Cid) into 100 buckets 
 row format delimited 
 fields terminated by ',';
 
 load data inpath '/input/Transactions.csv' into table transaction
+CLUSTERED BY (Cid) into 100 buckets 
+ hdfs dfs -D dfs.blocksize=4194304 -put 
