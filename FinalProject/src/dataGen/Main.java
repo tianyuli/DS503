@@ -1,6 +1,7 @@
 package dataGen;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;    
@@ -12,12 +13,13 @@ public class Main {
 	 */
 	public static void main(String[] args){
 		// Generate 5M lines of Transactions
+		DecimalFormat    df   = new DecimalFormat("######0.00");  
 		try{
 			FileWriter csvWriter = new FileWriter("Transactions.csv");
 		
 			for(int index = 1; index <= 10000000; index++){
 				int custID = (int)(Math.random() * 50000 + 1);
-				float transTotal = (float) (Math.random() * 100);
+				String transTotal = df.format((float)(Math.random() * 100));
 				int transNumItems = (int)(Math.random() * 5 + 1 );
 				
 				int month = (int)(Math.random()*12 + 1);
@@ -40,7 +42,6 @@ public class Main {
 		}catch (Exception e) {
 		    e.printStackTrace();
 		}
-		
 	}
 	private static boolean has30(int month) {
 		int[] m = new int[] {4,6,9,11};

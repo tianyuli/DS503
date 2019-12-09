@@ -4,13 +4,13 @@ import java.lang.String;
 public class Transaction {
 	private int TransID;
 	private int CustID;
-	private float TransTotal;
+	private String TransTotal;
 	private int TransNumItems;
 	private String Day;
 	private String Month;
 	private String e;
 	
-	public Transaction(int transID, int custID, float transTotal,
+	public Transaction(int transID, int custID, String transTotal,
 			int transNumItems, String day, String month, String e1) {
 		TransID = transID;
 		CustID = custID;

@@ -94,6 +94,7 @@ public class Result {
 			Double n = result.get(s);
 			if(o == null) {
 				hasNew = true;
+				System.out.println("NEWWWWWWWW");
 				sumResult.put(s, n);
 			}
 			if(!hasNew) 	if(n == null) n = (double) 0; // new result didnt have this key

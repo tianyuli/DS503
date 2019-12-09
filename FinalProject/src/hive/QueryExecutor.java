@@ -1,7 +1,5 @@
 package hive;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -15,11 +13,16 @@ public class QueryExecutor {
 	private static String user = "";
 	private static String password = "";
 	private static Connection connect;
-	private int index = 0;
 	public QueryExecutor(String db) {
 		try {
 			initialize(db);
 			System.out.println("Connection Success!!!");
+			execute("drop table transact");
+			execute("create table transact(Tid int, Cid int, Total float, Num int, Day String, Month String, DayOfWeek String) \n" + 
+					"row format delimited \n" + 
+					"fields terminated by ','");
+			execute("load data inpath '/input/Transactions.csv' into table transact");
+			System.out.println("Done!");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -38,62 +41,38 @@ public class QueryExecutor {
 	
 	public  HashMap<String , Double[] > execute(String query, int len) {
 		System.out.println("Runing: "+query);
-		index ++;
 		Statement state;
 		ResultSet result;
-		HashMap<String , Double[] >  rst = new HashMap<String , Double[] > ();
+		HashMap<String , Double[] >  rst = new HashMap<String , Double[]> ();
 		try {
 			state = connect.createStatement();
 			result = state.executeQuery(query);
 			
-			FileWriter csvWriter = new FileWriter(index+"Temp.txt");
 			while(result.next()) {
 				Double[] v = new Double[len]; 
 				String k = result.getString(1);
+				System.out.print(k);
 				StringBuffer sb = new StringBuffer();
 				for (int i = 0; i < len; i++) {
 					v[i] = Double.valueOf(result.getString(2+i));
 					sb.append("\t" + v[i]);
+					System.out.print("\t"+v[i]);
 				}
-				csvWriter.append(k + sb.toString() + "\n");
-				
+				System.out.println();				
 				rst.put(k, v);
 			}
-			System.out.println(index+"Temp.txt Saved");
-			csvWriter.flush();
-			csvWriter.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 				
 		return rst;
 	}
-	public void execute(String query) throws SQLException {
+	public   void execute(String query) throws SQLException {
 		Statement state;
 		state = connect.createStatement();
-		//return state.executeQuery(query);		
+		state.execute(query);		
 		
 	}
-	
-	public static void main(String[] args) throws SQLException {
-/*		initialize("default");
-////		execute("drop table transaction");
-//		 execute("create table tra(Tid int, Cid int, Total float, Num int, Day String, Month String, DayOfWeek String) \n" + 
-//				"row format delimited \n" + 
-//				"fields terminated by ','");
-//		
-//		execute("load data inpath '/input/Transactions.csv' into table tra");
-		ResultSet result = execute("SELECT * FROM transaction TABLESAMPLE (1 PERCENT)s REPEATABLE (123);");
-		while(result.next()) {
-			System.out.print(result.getString(1));
-			System.out.print("\t"+result.getString(2));
-			System.out.print("\t"+result.getString(3));
-			System.out.println("\t"+result.getString(4));
-		}*/
-//		
-	}
+
 }

@@ -13,8 +13,8 @@ public class Main {
 		String input = readLineByLine("input.txt");
 		ParseInput ps = new ParseInput(input);
 		System.out.println("Running query: " + ps.getSQL());
-		System.out.println("With threshold: " + ps.getThreshold());
-		System.out.println("And sample rate: " + ps.getAlpha());
+		System.out.println("With threshold: " + ps.getThreshold() + "%");
+		System.out.println("And sample rate: " + ps.getAlpha() + "%");
 		
 		ProgressiveApproximate PA = new ProgressiveApproximate(ps.getSQL(), ps.getThreshold(), ps.getAlpha());
 		PA.run();
