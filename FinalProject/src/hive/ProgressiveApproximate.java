@@ -1,18 +1,12 @@
 package hive;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.stream.Stream;
-
-import org.apache.commons.math3.util.MultidimensionalCounter.Iterator;
 
 public class ProgressiveApproximate {
 	private QueryExecutor qe;
-	private String SQL;
+	private String[] SQL = new String[2];
+	private String query = "";
 	private double Threshold;
 	private int Alpha;
 	private int index = 0;
@@ -28,12 +22,8 @@ public class ProgressiveApproximate {
 	}
 	private void analyzeQl(String sql) {
 		String[] sp = sql.split("group by");
-		StringBuffer sb = new StringBuffer();
-		sb.append(sp[0]);
-		sb.append("TABLESAMPLE(" + Alpha +" PERCENT)[REPEATABLE(SEED)] group by ");
-		SEED = "SEED";
-		sb.append(sp[1]);
-		SQL = sb.toString();
+		SQL[0] = sp[0] + "TABLESAMPLE(";
+		SQL[1] = " PERCENT) group by " + sp[1];
 		boolean SUM = false;
 		boolean COUNT = false;
 		boolean AVG = false; 
@@ -49,18 +39,24 @@ public class ProgressiveApproximate {
 		System.out.println(AVG);
 	}
 	
-	public void run() {
+	public void run() throws SQLException {
 		System.out.println("Run");
 		
 		while (index * Alpha <= 100) {
 //		while (true) {
 			System.out.println("--------------------------");
 			System.out.println("Round " + index);
-			System.out.println(SQL);
 			int  i = result.getNoField();
-			addingseed();
-			HashMap<String , Double[]> newResult = qe.execute(SQL,i);
 			index++;
+			addingseed(Alpha*index);
+			
+			int seed = (int)(Math.random() * 50000 + 1);
+			String randomseed = "set hive.sample.seednumber=" + seed;
+			System.out.println("Execute Query: " + randomseed);
+			qe.execute(randomseed);
+			
+			HashMap<String , Double[]> newResult = qe.execute(query,i);
+			
 			if (index == 1) {
 				result.setResult(newResult);
 				result.reportResult(Alpha*index);
@@ -75,11 +71,10 @@ public class ProgressiveApproximate {
 		System.out.println("Round " + index);
 		result.reportResult(Alpha*index);		
 	}
-	private void addingseed() {
-		int newSeed = (int)(Math.random() * 50000 + 1);
-		String[] sp= SQL.split(SEED);
-		SQL = sp[0] + newSeed+sp[1];
-		SEED = ""+newSeed;
+	private void addingseed(int i) {
+		int seed = (int)(Math.random() * 50000 + 1);
+		String set = "set hive.sample.seednumber=<" + seed+"INTEGER>";
+		query = SQL[0] + i + SQL[1];
 	}
 }
 

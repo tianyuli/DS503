@@ -56,7 +56,7 @@ public class QueryExecutor {
 					sb.append("\t" + v[i]);
 				}
 				csvWriter.append(k + sb.toString() + "\n");
-				 
+				
 				rst.put(k, v);
 			}
 			System.out.println(index+"Temp.txt Saved");
@@ -72,28 +72,28 @@ public class QueryExecutor {
 				
 		return rst;
 	}
-	public static ResultSet execute(String query) throws SQLException {
+	public void execute(String query) throws SQLException {
 		Statement state;
 		state = connect.createStatement();
-		return state.executeQuery(query);		
+		//return state.executeQuery(query);		
 		
 	}
 	
-//	public static void main(String[] args) throws SQLException {
-//		initialize("default");
-//////		execute("drop table transaction");
-////		 execute("create table tra(Tid int, Cid int, Total float, Num int, Day String, Month String, DayOfWeek String) \n" + 
-////				"row format delimited \n" + 
-////				"fields terminated by ','");
-////		
-////		execute("load data inpath '/input/Transactions.csv' into table tra");
-//		ResultSet result = execute("select DayOfWeek, sum(Num), count(Num), avg(Num) from tra group by DayOfWeek");
-//		while(result.next()) {
-//			System.out.print(result.getString(1));
-//			System.out.print("\t"+result.getString(2));
-//			System.out.print("\t"+result.getString(3));
-//			System.out.println("\t"+result.getString(4));
-//		}
-////		
-//	}
+	public static void main(String[] args) throws SQLException {
+/*		initialize("default");
+////		execute("drop table transaction");
+//		 execute("create table tra(Tid int, Cid int, Total float, Num int, Day String, Month String, DayOfWeek String) \n" + 
+//				"row format delimited \n" + 
+//				"fields terminated by ','");
+//		
+//		execute("load data inpath '/input/Transactions.csv' into table tra");
+		ResultSet result = execute("SELECT * FROM transaction TABLESAMPLE (1 PERCENT)s REPEATABLE (123);");
+		while(result.next()) {
+			System.out.print(result.getString(1));
+			System.out.print("\t"+result.getString(2));
+			System.out.print("\t"+result.getString(3));
+			System.out.println("\t"+result.getString(4));
+		}*/
+//		
+	}
 }
