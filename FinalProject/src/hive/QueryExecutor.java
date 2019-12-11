@@ -17,12 +17,12 @@ public class QueryExecutor {
 		try {
 			initialize(db);
 			System.out.println("Connection Success!!!");
-			execute("drop table transact");
-			execute("create table transact(Tid int, Cid int, Total float, Num int, Day String, Month String, DayOfWeek String) \n" + 
-					"row format delimited \n" + 
-					"fields terminated by ','");
-			execute("load data inpath '/input/Transactions.csv' into table transact");
-			System.out.println("Done!");
+//			execute("drop table transact");
+//			execute("create table transact(Tid int, Cid int, Total float, Num int, Day String, Month String, DayOfWeek String) \n" + 
+//					"row format delimited \n" + 
+//					"fields terminated by ','");
+//			execute("load data inpath '/input/Transactions.csv' into table transact");
+//			System.out.println("Done!");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -40,7 +40,7 @@ public class QueryExecutor {
 	}
 	
 	public  HashMap<String , Double[] > execute(String query, int len) {
-		System.out.println("Runing: "+query);
+		System.out.println("Running: "+query);
 		Statement state;
 		ResultSet result;
 		HashMap<String , Double[] >  rst = new HashMap<String , Double[]> ();
@@ -71,8 +71,7 @@ public class QueryExecutor {
 	public   void execute(String query) throws SQLException {
 		Statement state;
 		state = connect.createStatement();
-		state.execute(query);		
-		
+		state.execute(query);
 	}
 
 }

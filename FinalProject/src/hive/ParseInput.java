@@ -2,7 +2,7 @@ package hive;
 
 public class ParseInput {
 	private String SQL;
-	private double Threshold = 0.05;
+	private double Threshold = 5;
 	private int Alpha = 5;
 	
 	public ParseInput(String sql) {

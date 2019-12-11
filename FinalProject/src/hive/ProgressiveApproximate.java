@@ -43,7 +43,7 @@ public class ProgressiveApproximate {
 			int  i = result.getNoField();
 			index++;
 			
-			int seed = (int)(Math.random() * 50000 + 500);;
+			int seed = (int)(Math.random() * 10000 + 500);;
 			String randomseed = "set hive.sample.seednumber=" + seed;
 			System.out.println("Execute Query: " + randomseed);
 			qe.execute(randomseed);

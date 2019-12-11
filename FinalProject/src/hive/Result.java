@@ -100,7 +100,6 @@ public class Result {
 			if(!hasNew) 	if(n == null) n = (double) 0; // new result didnt have this key
 		
 			sumResult.put(s, n+o);
-//			System.out.println((n*iter - o) / o );
 			d += Math.abs(n*iter - o) / o * 100;
 			i++;
 		}
